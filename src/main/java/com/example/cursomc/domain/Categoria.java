@@ -23,7 +23,6 @@ public class Categoria implements Serializable {
 	private String nome;
 	
 	//no lado que queres que venha, que puxe os objetos associados no caso a categoria puxando os produtos associados a ela
-	@JsonManagedReference
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
