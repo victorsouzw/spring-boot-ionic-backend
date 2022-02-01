@@ -12,36 +12,41 @@ import javax.persistence.OneToOne;
 
 import com.example.cursomc.domain.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 //tem 1 pagamento pra 1 pedido, relação 1 pra 1, quando é assim precisamos q o id do pagamento seja o mesmo do pedido]
 
 //type joined cria um tabelão, tem como criar separado...
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Pagamento implements Serializable{
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+public abstract class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	//class foi setada como pagamento para que nao ser possivel instanciar uma classe dela, so das filhas
-	
-	//aqui nao usa aquele generate, pq queremos associar ao id do pedido
-	@Id 
+
+	// class foi setada como pagamento para que nao ser possivel instanciar uma
+	// classe dela, so das filhas
+
+	// aqui nao usa aquele generate, pq queremos associar ao id do pedido
+	@Id
 	private Integer id;
 	private Integer estado;
-	
+
 	@JsonBackReference
 	@OneToOne
-	@JoinColumn(name="pedido_id")
+	@JoinColumn(name = "pedido_id")
 	@MapsId
 	private Pedido pedido;
-	
+
 	public Pagamento() {
 		
 	}
 
+	
+
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = (estado==null) ? null : estado.getCod();
+		this.estado = (estado == null) ? null : estado.getCod();
 		this.pedido = pedido;
 	}
 

@@ -47,7 +47,6 @@ public class Pedido implements Serializable{
 	private Set<ItemPedido> itens = new HashSet<>();
 	
 	public Pedido() {
-		
 	}
 
 	//tiramos o pagamento do construtor pra q seja possivel criar o pedido primeiro, e aí sim dps o pagamento e os relacionar
